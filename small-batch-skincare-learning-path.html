@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Small‑Batch Skincare · Ruta de 7 días</title>
+  <style>
+    :root {
+      --beige: #FAE2C3;
+      --blue: #9CB7D4;
+      --charcoal: #686869;
+      --silver: #C0C0C0;
+      --bg: #f7f7f8;
+      --ok: #13aa52;
+      --accent: #111827;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: #111;
+    }
+    header {
+      background: linear-gradient(135deg, var(--blue), var(--beige));
+      padding: 28px 20px;
+      color: #0b2239;
+      position: sticky; top: 0; z-index: 10;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    }
+    h1 {
+      margin: 0 0 6px 0;
+      font-size: 26px;
+      letter-spacing: .2px;
+    }
+    .sub {
+      opacity: .85;
+      font-size: 14px;
+    }
+    main { max-width: 1080px; margin: 24px auto; padding: 0 16px 80px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .card {
+      background: white;
+      border-radius: 18px;
+      border: 1px solid #e9e9ee;
+      box-shadow: 0 6px 18px rgba(0,0,0,.06);
+      padding: 16px;
+    }
+    .day-title { display:flex; align-items:center; gap:10px; margin: 6px 0 10px; }
+    .chip {
+      font-size: 12px; padding: 4px 8px; border-radius: 999px;
+      background: var(--silver); color: #1f2937;
+    }
+    .list { margin: 0; padding: 0; list-style: none; }
+    .li {
+      display:flex; align-items:flex-start; gap:10px; padding:8px 6px;
+      border-radius: 12px;
+    }
+    .li:hover { background: #fafafa; }
+    a.link {
+      color: #0b5cab; text-decoration: none; font-weight: 600;
+    }
+    a.link:hover { text-decoration: underline; }
+    .controls {
+      display:flex; flex-wrap: wrap; gap:10px; margin: 12px 0 0;
+    }
+    button, .btn {
+      appearance:none; border: 1px solid #e0e0e6; background:white; color:#111;
+      padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:600;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .primary { background: var(--blue); border-color: #8aacc8; }
+    .ok { background: #E7F7EE; border-color:#cfeede; color:#065f46; }
+    .muted { opacity: .8; }
+    .progressbar {
+      height: 10px; background: #eceff3; border-radius: 999px; overflow: hidden; margin-top: 10px;
+    }
+    .progressbar > div { height: 100%; background: linear-gradient(90deg, var(--blue), var(--beige)); width: 0%; }
+    .section-title { font-size: 18px; margin: 10px 0 6px; color: var(--charcoal); }
+    .shopping { background: #fff; padding: 16px; border-radius: 18px; border: 1px solid #e9e9ee; }
+    .small { font-size: 12px; color: #4b5563; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ruta de 7 días · Micro‑producción cosmética</h1>
+    <div class="sub">Marca como completado, guarda tu progreso (local), e imprime/guarda en PDF.</div>
+    <div class="progressbar"><div id="progress"></div></div>
+  </header>
+  <main>
+    <section class="card">
+      <div class="section-title">Cómo usar esta guía</div>
+      <p>Objetivo: en 7 días tendrás una visión clara de <strong>proceso</strong>, <strong>GMP/Regulación</strong>, <strong>formulación</strong>, <strong>estabilidad/QC</strong>, <strong>equipo y llenado</strong>, y <strong>IA aplicada</strong>. Cada casilla guarda tu avance automáticamente en tu navegador.</p>
+      <div class="controls">
+        <button class="btn ok" onclick="clearProgress()">Reiniciar progreso</button>
+        <button class="btn" onclick="exportJSON()">Exportar progreso (.json)</button>
+        <button class="btn primary" onclick="window.print()">Imprimir / PDF</button>
+      </div>
+    </section>
+
+    <section class="grid" id="days">
+      <!-- Days will be injected here -->
+    </section>
+
+    <section class="shopping">
+      <div class="section-title">Checklist equipo mínimo (lotes chicos 1–5 L)</div>
+      <ul class="list">
+        <li class="li"><label><input type="checkbox" data-id="equip-0"> Báscula de laboratorio 0.01 g y 1 kg</label></li><li class="li"><label><input type="checkbox" data-id="equip-1"> Termómetro digital + pH‑metro (±0.01 pH)</label></li><li class="li"><label><input type="checkbox" data-id="equip-2"> Placa calefactora con agitador magnético (serums/geles)</label></li><li class="li"><label><input type="checkbox" data-id="equip-3"> Mezclador overhead (cremas densas) + impeler ancla/turbina</label></li><li class="li"><label><input type="checkbox" data-id="equip-4"> Homogeneizador de inmersión (emulsiones finas)</label></li><li class="li"><label><input type="checkbox" data-id="equip-5"> Baño María / olla de cera (fases aceite)</label></li><li class="li"><label><input type="checkbox" data-id="equip-6"> Beakers de borosilicato (250–2000 mL) + espátulas</label></li><li class="li"><label><input type="checkbox" data-id="equip-7"> Funnel de saneamiento + recipientes grado alimentario</label></li><li class="li"><label><input type="checkbox" data-id="equip-8"> Llenadora manual o pistón de mesa + boquillas de repuesto</label></li><li class="li"><label><input type="checkbox" data-id="equip-9"> Alcohol isopropílico, toallas sin pelusa, guantes, cubrebocas</label></li><li class="li"><label><input type="checkbox" data-id="equip-10"> Etiquetadora manual y verificador de lote/fecha</label></li>
+      </ul>
+      <p class="small">Nota: selecciona según tu primera línea (p. ej., espuma limpiadora, sérum PHA y bloqueador mineral). Ajusta potencia de mezclado a viscosidad y volumen.</p>
+    </section>
+  </main>
+
+<script>
+  const PLAN = [
+    {
+      day: 1,
+      title: "Panorama: tours y fundamentos",
+      items: [
+        ["Factory tour general (cómo se hace a escala)", "https://www.youtube.com/watch?v=gQ382qaJXvc"],
+        ["Tour iLABS (flujo y layout de un laboratorio)", "https://www.youtube.com/watch?v=z_QH-0cBFLk"],
+        ["Tour Clinique (I+D y procesos)", "https://www.youtube.com/watch?v=Nmze6ocxaVg"],
+        ["Intro industria & tipos de fórmulas – Perry Romanowski", "https://www.youtube.com/watch?v=OiLHFylv07E"],
+        ["Cómo se formula un cosmético (6 pasos)", "https://m.youtube.com/watch?v=xCJubIt0TKo"]
+      ]
+    },
+    {
+      day: 2,
+      title: "GMP/ISO 22716 y México (NOM‑259 y NOM‑141)",
+      items: [
+        ["ISO 22716 — Introducción (video corto)", "https://www.youtube.com/watch?v=KYE-vj6QYa8"],
+        ["ISO 22716 — Webinar/principios", "https://www.youtube.com/watch?v=JtLxpoHLXTI"],
+        ["Podcast #118 — Estructura de ISO 22716", "https://www.youtube.com/watch?v=MHZEc1-q5x4"],
+        ["NOM‑259: BPF en cosméticos (explicación)", "https://www.youtube.com/watch?v=2jYrQjVdKZ8"],
+        ["NOM‑141: Etiquetado para cosméticos (resumen)", "https://www.youtube.com/watch?v=X5_TIRaxyRk"],
+        ["Permisos sanitarios de importación (COFEPRIS)", "https://www.youtube.com/watch?v=irljXEZ4Qaw"]
+      ]
+    },
+    {
+      day: 3,
+      title: "Equipo del micro‑lab y setup",
+      items: [
+        ["Cómo montar tu lab casero de formulación", "https://www.youtube.com/watch?v=2aV-f1Fpnfs"],
+        ["Overhead vs. homogeneizador (cuándo usar cada uno)", "https://www.youtube.com/watch?v=TNPPtMBt9Ow"],
+        ["Mixer para lotes pequeños: tips prácticos", "https://www.youtube.com/watch?v=qkXK8IlhXGw"],
+        ["Comparativa de mezcladores (12 opciones)", "https://www.youtube.com/watch?v=p1BAe43IqZU"]
+      ]
+    },
+    {
+      day: 4,
+      title: "Hojas de formulación & escalado",
+      items: [
+        ["Crear hoja de fórmula en Excel/Sheets (paso a paso)", "https://www.youtube.com/watch?v=9WnbwPu6j0U"],
+        ["Cómo escalar cualquier fórmula con Excel", "https://www.youtube.com/watch?v=VSsxsx8rZa4"],
+        ["Playlist Chemists Corner (formulación base)", "https://www.youtube.com/playlist?list=PLQm7iZ9uk5fY5SSh9l7h9KeIEgsDY_0p8"],
+        ["Tips: hoja de formulación (Perry Romanowski)", "https://chemistscorner.com/useful-formulating-spreadsheet/"]
+      ]
+    },
+    {
+      day: 5,
+      title: "Estabilidad & control de calidad",
+      items: [
+        ["Cómo probar estabilidad de emulsiones en casa", "https://www.youtube.com/watch?v=Xx81Ae3U43Y"],
+        ["Pruebas básicas de estabilidad para vender", "https://www.youtube.com/watch?v=YmK1_CXOt80"],
+        ["Diagnóstico: por qué falla la estabilidad (emulsiones)", "https://www.youtube.com/watch?v=DXUYuTQ9REE"],
+        ["W/O emulsions & troubleshooting (live)", "https://www.youtube.com/watch?v=d2rskc0neO8"]
+      ]
+    },
+    {
+      day: 6,
+      title: "Llenado, empaque y sanitización",
+      items: [
+        ["Cómo funciona una llenadora volumétrica de mesa", "https://www.youtube.com/watch?v=ZQCktRVapME"],
+        ["Instalación de llenadora de pistón (guía)", "https://www.youtube.com/watch?v=R1PQ71Xpibg"],
+        ["Limpieza profunda de llenadora manual", "https://www.youtube.com/watch?v=nbxjlBkKjHM"],
+        ["Sanitizar equipo de skincare (flujo real)", "https://www.youtube.com/watch?v=FRhlzH1cB_k"],
+        ["Etiquetado correcto (NOM‑141) — webinar", "https://www.youtube.com/watch?v=HuEgmWTKAjE"]
+      ]
+    },
+    {
+      day: 7,
+      title: "IA en formulación & límites",
+      items: [
+        ["Smart Talks: L’Oréal × IBM (highlights en YouTube)", "https://m.youtube.com/watch?v=Ac-BIziJPXQ"],
+        ["Anuncio fundacional L’Oréal × IBM (resumen)", "https://www.youtube.com/watch?v=Bg8rSYGPYdM"],
+        ["Potion.ai — uso paso a paso para formuladores", "https://www.youtube.com/watch?v=lfvQSRdGlYc"],
+        ["‘Le pedí a ChatGPT que formulara’ (cuidado con límites)", "https://www.youtube.com/watch?v=29c0gJyY8c8"]
+      ]
+    }
+  ];
+
+  function loadProgress() {
+    const raw = localStorage.getItem('sb_progress_v1');
+    return raw ? JSON.parse(raw) : {};
+  }
+  function saveProgress(state) {
+    localStorage.setItem('sb_progress_v1', JSON.stringify(state));
+  }
+  function clearProgress() {
+    localStorage.removeItem('sb_progress_v1');
+    document.querySelector('#days').innerHTML='';
+    render();
+  }
+  function exportJSON() {
+    const data = localStorage.getItem('sb_progress_v1') || '{}';
+    const blob = new Blob([data], {type: 'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'progreso_small_batch.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  function render() {
+    const state = loadProgress();
+    const daysEl = document.querySelector('#days');
+    let total = 0, done = 0;
+    PLAN.forEach(d => {
+      const card = document.createElement('section');
+      card.className = 'card';
+      const h = document.createElement('div');
+      h.className = 'day-title';
+      h.innerHTML = `<span class="chip">Día ${d.day}</span><h3 style="margin:0">${d.title}</h3>`;
+      card.appendChild(h);
+
+      const ul = document.createElement('ul');
+      ul.className = 'list';
+      d.items.forEach((it, idx) => {
+        const id = `d${d.day}-i${idx}`;
+        const li = document.createElement('li');
+        li.className = 'li';
+        const checked = state[id] ? 'checked' : '';
+        li.innerHTML = `
+          <label style="display:flex;gap:10px;align-items:flex-start;width:100%">
+            <input type="checkbox" data-id="${id}" ${checked} />
+            <span style="flex:1">
+              <a class="link" href="${it[1]}" target="_blank" rel="noopener">${it[0]}</a>
+            </span>
+          </label>`;
+        ul.appendChild(li);
+        total += 1;
+        if (state[id]) done += 1;
+      });
+      card.appendChild(ul);
+      daysEl.appendChild(card);
+    });
+    const pct = total ? Math.round((done/total)*100) : 0;
+    document.querySelector('#progress').style.width = pct + '%';
+  }
+
+  document.addEventListener('change', (e) => {
+    const id = e.target?.dataset?.id;
+    if (!id) return;
+    const state = loadProgress();
+    state[id] = e.target.checked;
+    saveProgress(state);
+    render();
+  });
+
+  render();
+</script>
+</body>
+</html>
